@@ -23,12 +23,6 @@ types:
       rating:
         type: double
         docs: The rating scale is one to five stars
-      genre: Genre
-  
-  Genre: 
-    enum:   
-      - Horror
-      - Comedy
 
 errors:
   MovieDoesNotExistError:

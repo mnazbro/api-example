@@ -4,5 +4,5 @@ __pycache__/
 
 
 # generated code
-frontend/src/generated
-backend/src/api/generated
+frontend/src/api/generated
+backend/src/fern_fastapi_starter/api/generated
