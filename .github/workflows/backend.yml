@@ -18,6 +18,8 @@ jobs:
         run: npm install -g fern-api
       - run: |
           fern generate
+        env:
+          FERN_TOKEN: dummy
       - uses: actions/setup-python@v3
       - name: Install Poetry
         uses: snok/install-poetry@v1
