@@ -1,0 +1,16 @@
+default-group: local
+groups:
+  local:
+    generators:
+      - name: fernapi/fern-fastapi-server
+        version: 0.0.48
+        output:
+          location: local-file-system
+          path: ../../backend/src/fern_fastapi_starter/api/generated
+      - name: fernapi/fern-typescript-sdk
+        version: 0.1.7
+        output:
+          location: local-file-system
+          path: ../../frontend/src/api/generated
+        config:
+          outputEsm: true

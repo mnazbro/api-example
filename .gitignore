@@ -1,0 +1,8 @@
+.mypy_cache/
+__pycache__/
+.DS_Store
+
+
+# generated code
+frontend/src/api/generated
+backend/src/fern_fastapi_starter/api/generated
