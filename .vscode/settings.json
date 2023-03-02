@@ -2,5 +2,6 @@
   "editor.formatOnSave": true,
   "python.formatting.provider": "black",
   "python.linting.flake8Enabled": true,
-  "mypy.configFile": "backend/mypy.ini"
+  "mypy.configFile": "backend/mypy.ini",
+  "python.analysis.typeCheckingMode": "basic"
 }

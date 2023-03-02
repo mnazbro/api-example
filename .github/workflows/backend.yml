@@ -14,6 +14,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Install fern
+        run: npm install -g fern-api
+      - run: |
+          fern generate
       - uses: actions/setup-python@v3
       - name: Install Poetry
         uses: snok/install-poetry@v1
@@ -21,24 +25,3 @@ jobs:
         run: poetry install
       - name: mypy
         run: poetry run mypy
-
-  dockerize:
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.ref == 'refs/heads/main'
-    defaults:
-      run:
-        working-directory: ./backend
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - uses: actions/setup-python@v3
-      - name: Install Poetry
-        uses: snok/install-poetry@v1
-      - name: Install dependencies
-        run: poetry install
-      - name: Install dependencies
-        run: poetry install
-      - name: Docker build
-        run: | 
-          docker build -f Dockerfile -t "server" .
