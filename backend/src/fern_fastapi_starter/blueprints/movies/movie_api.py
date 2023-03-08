@@ -15,8 +15,8 @@ class MovieApi(AbstractMovieService):
     def get_all_movies(self) -> list[Movie]:
         return self._movie_controller.get_all_movies()
 
-    def create_movie(self, *, body: Movie, movie_id: str) -> None:
-        self._movie_controller.create_movie(movie=body, movie_id=movie_id)
+    def create_movie(self, *, body: Movie) -> None:
+        self._movie_controller.create_movie(movie=body)
 
     def delete_movie(self, *, movie_id: str) -> None:
         self._movie_controller.delete_movie(movie_id=movie_id)

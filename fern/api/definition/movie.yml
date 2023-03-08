@@ -6,7 +6,7 @@ service:
   endpoints:
     getMovie:
       method: GET
-      path: /{movieId}
+      path: /movie/{movieId}
       path-parameters:
         movieId: MovieId
       response: Movie
@@ -14,13 +14,11 @@ service:
         - MovieNotFoundError
     getAllMovies:
       method: GET
-      path: /all
+      path: /all-movies
       response: list<Movie>
     createMovie:
       method: POST
-      path: /{movieId}
-      path-parameters:
-        movieId: MovieId
+      path: /movie
       request:
         body: Movie
       errors:

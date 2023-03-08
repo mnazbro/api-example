@@ -14,9 +14,8 @@ class MovieController:
     def get_all_movies(self) -> list[Movie]:
         return list(self._db.values())
 
-    def create_movie(self, *, movie: Movie, movie_id: str) -> None:
-        if movie.id != movie_id:
-            raise InvalidMovieError(MovieId.from_str(movie_id))
+    def create_movie(self, *, movie: Movie) -> None:
+        movie_id = movie.id
         if movie_id in self._db:
             raise MovieNotFoundError(MovieId.from_str(movie_id))
         self._db[movie_id] = movie

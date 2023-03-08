@@ -16,7 +16,7 @@ function App() {
     }, []);
 
     const handleClick = useCallback(() => {
-        movieApiClient.movie.createMovie(movieName, {
+        movieApiClient.movie.createMovie({
             id: `id-${movieName}`,
             title: movieName,
             rating: Math.random() * 5,
