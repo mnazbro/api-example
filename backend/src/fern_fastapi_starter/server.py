@@ -2,12 +2,13 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from fern_fastapi_starter.blueprints.movies.controllers import MovieController
 from .api.generated.register import register
-from .movies_service import MoviesService
+from fern_fastapi_starter.blueprints import MovieApi
 
 app = FastAPI()
 
-register(app, imdb=MoviesService())
+register(app, movie=MovieApi(movie_controller=MovieController()))
 
 app.add_middleware(
     CORSMiddleware,

@@ -1,31 +1,52 @@
-import { useCallback, useState } from "react";
+import React, { useState, useEffect, useCallback, ChangeEventHandler } from "react";
 import "./App.css";
-import { ImdbApi, ImdbApiClient } from "./api";
-
-const BACKEND_CLIENT = new ImdbApiClient({
-    environment: "http://localhost:8080",
-});
+import { movieApiClient } from "./services/movie";
+import { InputGroup, ControlGroup, Button, Tag } from "@blueprintjs/core";
+import { Movie } from "./api/generated/api";
 
 function App() {
-    const [movie, setMovie] = useState<ImdbApi.Movie>();
+    const [movies, setMovies] = useState<Movie[]>([]);
+    const [movieName, setMovieName] = useState("");
+    const [error, setError] = useState<Error>();
 
-    const onClick = useCallback(async () => {
-        try {
-            const movie = await BACKEND_CLIENT.imdb.getMovie("goodwill-hunting");
-            setMovie(movie);
-        } catch (e) {
-            console.error("Failed to get movie", e);
-        }
+    useEffect(() => {
+        movieApiClient.movie.getAllMovies()
+            .then(allMovies => setMovies(allMovies))
+            .catch(error => setError(error as Error));
     }, []);
 
+    const handleClick = useCallback(() => {
+        movieApiClient.movie.createMovie(movieName, {
+            id: `id-${movieName}`,
+            title: movieName,
+            rating: Math.random() * 5,
+        })
+        movieApiClient.movie.getAllMovies()
+            .then(allMovies => setMovies(allMovies))
+            .catch(error => setError(error as Error));
+    }, [movieName]);
+    const handleTextChange: ChangeEventHandler<HTMLInputElement> = (x) => {
+        setMovieName(x.target.value)
+    };
     return (
         <div className="App">
-            <div className="button-container">
-                <button onClick={onClick}>Load movie</button>
-            </div>
-            {movie != null && <pre>{JSON.stringify(movie, undefined, 4)}</pre>}
+            {movies.map(movie => {
+                return (
+                    <div key={movie.id}>
+                        <Tag>{movie.id}</Tag>
+                        <Tag intent={"primary"}>{movie.title}</Tag>
+                        <Tag intent={"warning"}>{movie.rating}</Tag>
+                    </div>
+                )
+            })}
+            <ControlGroup>
+                <InputGroup onChange={handleTextChange} value={movieName}/>
+                <Button onClick={handleClick}>Create movie</Button>
+            </ControlGroup>
+            {error != null && <pre>{JSON.stringify(error, undefined, 4)}</pre>}
         </div>
     );
 }
+
 
 export default App;
