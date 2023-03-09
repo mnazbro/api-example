@@ -1,0 +1,143 @@
+openapi: 3.0.1
+info:
+  title: api
+  version: ''
+paths:
+  /movie/movie/{movieId}:
+    get:
+      operationId: movie_getMovie
+      tags:
+        - Movie
+      parameters:
+        - name: movieId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/MovieId'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: object
+                    properties:
+                      error:
+                        type: string
+                        enum:
+                          - MovieNotFoundError
+                      content:
+                        $ref: '#/components/schemas/MovieId'
+  /movie/all-movies:
+    get:
+      operationId: movie_getAllMovies
+      tags:
+        - Movie
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movie'
+  /movie/movie:
+    post:
+      operationId: movie_createMovie
+      tags:
+        - Movie
+      parameters: []
+      responses:
+        '204':
+          description: ''
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: object
+                    properties:
+                      error:
+                        type: string
+                        enum:
+                          - InvalidMovieError
+                      content:
+                        $ref: '#/components/schemas/MovieId'
+        '429':
+          description: ''
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: object
+                    properties:
+                      error:
+                        type: string
+                        enum:
+                          - MovieAlreadyExistsError
+                      content:
+                        $ref: '#/components/schemas/MovieId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Movie'
+  /movie/{movieId}:
+    delete:
+      operationId: movie_deleteMovie
+      tags:
+        - Movie
+      parameters:
+        - name: movieId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/MovieId'
+      responses:
+        '204':
+          description: ''
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: object
+                    properties:
+                      error:
+                        type: string
+                        enum:
+                          - MovieNotFoundError
+                      content:
+                        $ref: '#/components/schemas/MovieId'
+components:
+  schemas:
+    MovieId:
+      type: string
+    Movie:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/MovieId'
+        title:
+          type: string
+        rating:
+          type: number
+          format: double
+          description: The rating scale is one to five stars
+      required:
+        - id
+        - title
+        - rating
+  securitySchemes: {}
