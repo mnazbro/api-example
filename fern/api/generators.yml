@@ -3,7 +3,7 @@ groups:
   local:
     generators:
       - name: fernapi/fern-fastapi-server
-        version: 0.0.48
+        version: 0.0.52
         output:
           location: local-file-system
           path: ../../backend/src/fern_fastapi_starter/api/generated
