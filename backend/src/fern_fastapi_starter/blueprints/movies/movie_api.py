@@ -1,7 +1,7 @@
 from fastapi import Depends
 
-from fern_fastapi_starter.api.generated.resources.movie.service import AbstractMovieService
 from fern_fastapi_starter.api.generated import Movie
+from fern_fastapi_starter.api.generated.resources.movie.service.service import AbstractMovieService
 from fern_fastapi_starter.blueprints.movies.controllers import MovieController
 
 

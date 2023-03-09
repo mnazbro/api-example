@@ -5,7 +5,7 @@ info:
 paths:
   /movie/movie/{movieId}:
     get:
-      operationId: movie_getMovie
+      operationId: getMovie
       tags:
         - Movie
       parameters:
@@ -23,7 +23,7 @@ paths:
                 $ref: '#/components/schemas/Movie'
   /movie/all-movies:
     get:
-      operationId: movie_getAllMovies
+      operationId: getAllMovies
       tags:
         - Movie
       parameters: []
@@ -38,7 +38,7 @@ paths:
                   $ref: '#/components/schemas/Movie'
   /movie/movie:
     post:
-      operationId: movie_createMovie
+      operationId: createMovie
       tags:
         - Movie
       parameters: []
@@ -53,7 +53,7 @@ paths:
               $ref: '#/components/schemas/Movie'
   /movie/{movieId}:
     delete:
-      operationId: movie_deleteMovie
+      operationId: deleteMovie
       tags:
         - Movie
       parameters:
